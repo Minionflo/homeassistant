@@ -2,7 +2,7 @@ blueprint:
   name: Heizung
   description: The Automation for the Heizung
   domain: automation
-  source_url: https://files.minionflo.net/homeassistant/blueprints/heizung.yaml
+  source_url: https://github.com/Minionflo/homeassistant/blob/master/blueprints/automations/minionflo/heizung.yaml
   input:
     relay:
       name: Relay
