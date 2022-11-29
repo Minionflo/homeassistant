@@ -1,27 +1,45 @@
+blueprint:
+  name: Smart Switch 3 Way
+  description: The Automation for the something
+  domain: automation
+  source_url: https://github.com/Minionflo/homeassistant/blob/master/blueprints/automations/minionflo/switch-3.yaml
+  input:
+    switch:
+      name: Switch
+      selector:
+        device:
+          integration: esphome
+    light1:
+      name: Light for Button 1
+      selector:
+        entity:
+          domain: light
+    light2:
+      name: Light for Button 2
+      selector:
+        entity:
+          domain: light
+    light3:
+      name: Light for Button 3
+      selector:
+        entity:
+          domain: light
 
 
-
-
-
-
-
-- id: '1669658384286'
-  alias: David Schalter
-  description: ''
-  trigger:
+trigger:
   - type: turned_on
     platform: device
-    device_id: 573b13c0e262852a3823efd23b88fdb8
+    device_id: !input switch
     entity_id: binary_sensor.5_button_1
     domain: binary_sensor
   - type: turned_on
     platform: device
-    device_id: 573b13c0e262852a3823efd23b88fdb8
+    device_id: !input switch
     entity_id: binary_sensor.5_button_2
     domain: binary_sensor
   - type: turned_on
     platform: device
-    device_id: 573b13c0e262852a3823efd23b88fdb8
+    device_id: !input switch
     entity_id: binary_sensor.5_button_3
     domain: binary_sensor
   - platform: device
@@ -29,8 +47,8 @@
     device_id: 4669ba611d96c72548eb4536004ee1ad
     entity_id: light.david_decke_licht_huelight
     domain: light
-  condition: []
-  action:
+
+action:
   - if:
     - type: is_on
       condition: device
@@ -76,4 +94,3 @@
       device_id: 573b13c0e262852a3823efd23b88fdb8
       entity_id: switch.5_led_1
       domain: switch
-  mode: single
