@@ -1,0 +1,79 @@
+
+
+
+
+
+
+
+- id: '1669658384286'
+  alias: David Schalter
+  description: ''
+  trigger:
+  - type: turned_on
+    platform: device
+    device_id: 573b13c0e262852a3823efd23b88fdb8
+    entity_id: binary_sensor.5_button_1
+    domain: binary_sensor
+  - type: turned_on
+    platform: device
+    device_id: 573b13c0e262852a3823efd23b88fdb8
+    entity_id: binary_sensor.5_button_2
+    domain: binary_sensor
+  - type: turned_on
+    platform: device
+    device_id: 573b13c0e262852a3823efd23b88fdb8
+    entity_id: binary_sensor.5_button_3
+    domain: binary_sensor
+  - platform: device
+    type: changed_states
+    device_id: 4669ba611d96c72548eb4536004ee1ad
+    entity_id: light.david_decke_licht_huelight
+    domain: light
+  condition: []
+  action:
+  - if:
+    - type: is_on
+      condition: device
+      device_id: 573b13c0e262852a3823efd23b88fdb8
+      entity_id: binary_sensor.5_button_1
+      domain: binary_sensor
+    then:
+    - type: toggle
+      device_id: 4669ba611d96c72548eb4536004ee1ad
+      entity_id: light.david_decke_licht_huelight
+      domain: light
+  - if:
+    - type: is_on
+      condition: device
+      device_id: 573b13c0e262852a3823efd23b88fdb8
+      entity_id: binary_sensor.5_button_2
+      domain: binary_sensor
+    then:
+    - type: toggle
+      device_id: cb7c91ab81fabdeb3c6d7f543f81ff6b
+      entity_id: light.signify_netherlands_b_v_lca006_huelight
+      domain: light
+  - if:
+    - type: is_on
+      condition: device
+      device_id: 573b13c0e262852a3823efd23b88fdb8
+      entity_id: binary_sensor.5_button_3
+      domain: binary_sensor
+    then: []
+  - if:
+    - condition: device
+      type: is_on
+      device_id: 4669ba611d96c72548eb4536004ee1ad
+      entity_id: light.david_decke_licht_huelight
+      domain: light
+    then:
+    - type: turn_on
+      device_id: 573b13c0e262852a3823efd23b88fdb8
+      entity_id: switch.5_led_1
+      domain: switch
+    else:
+    - type: turn_off
+      device_id: 573b13c0e262852a3823efd23b88fdb8
+      entity_id: switch.5_led_1
+      domain: switch
+  mode: single

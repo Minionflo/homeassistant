@@ -1,0 +1,57 @@
+blueprint:
+  name: Heizung
+  description: The Automation for the Heizung
+  domain: automation
+  source_url: https://files.minionflo.net/homeassistant/blueprints/heizung.yaml
+  input:
+    relay:
+      name: Relay
+      selector:
+        entity:
+          domain: switch
+    temp:
+      name: temp
+      selector:
+        target:
+          entity:
+            domain: input_number
+    to_temp:
+      name: To Temp
+      selector:
+        target:
+          entity:
+            domain: input_number
+
+# If motion is detected within the delay,
+# we restart the script.
+mode: restart
+max_exceeded: silent
+
+trigger:
+  - platform: state
+    entity_id:
+    - !input temp
+  - platform: state
+    entity_id:
+    - !input to_temp
+
+variables:
+  temp: !input temp
+  to_temp: !input to_temp
+
+action:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{% if states({{ temp }}) <= states({{ to_temp }}) %} false {% else %} true {% endif %}'
+      sequence:
+      - type: turn_on
+        entity_id: !input relay
+        domain: switch
+    - conditions:
+      - condition: template
+        value_template: '{% if states({{ temp }}) <= states({{ to_temp }}) %} true {% else %} false {% endif %}'
+      sequence:
+      - type: turn_off
+        entity_id: !input relay
+        domain: switch
